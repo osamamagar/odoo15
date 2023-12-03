@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        
+        <record id="hms_patient_view" model="ir.actions.act_window">
+            <field name="name">Patient</field>
+            <field name="res_model">hms.patient</field>
+        </record>
+
+        <record id="hms_patient_tree_view" model="ir.ui.view">
+            <field name="name">HMS Patient Tree</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name='first_name'></field>
+                    <field name='last_name'></field>
+                    <field name='email'></field>
+                    <field name='history'></field>
+                    <field name='cr_ratio'></field>
+                    <field name='blood_type'></field>
+                    <field name='states'></field>
+                    <field name='pcr'></field>
+                    <field name='image'></field>
+                    <field name='address'></field>
+                    <field name='age'></field>
+                    <field name='department_id'></field>
+                    <field name='capacity'></field>
+                    <field name='doctor_ids'></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hms_patient_form_view" model="ir.ui.view">
+            <field name="name">HMS Patient Form</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="states" widget="statusbar"  nolabel="1" options="{'clickable':'1'}"/>
+                    </header>
+                    <sheet>
+                        <notebook>
+                            <page string="General Information">
+                            <group string="Data">
+                                <field name='first_name'></field>
+                                <field name='last_name'></field>
+                                <field name='email'></field>
+                                <field name='birth_date'></field>
+                                <field name='age'></field>
+                                <field name='address'></field>
+                            </group>
+                            </page>
+                            <page string="Medical Information">
+                            <group string="Data">
+                                <field name='history' attrs="{'invisible':[('age','&lt;',50)]}"></field>
+                                <field name='pcr'></field>
+                                <field name='cr_ratio' attrs="{'required':[('pcr','=',True)]}"></field>
+                                <field name='blood_type'></field>
+                                <field name='image'></field>
+                            </group>
+                            </page>
+                            <page string="Department Information">
+                            <group string="Data">
+                                <field name='department_id' domain="[('is_opened','=',True)]"></field>
+                                <field name='doctor_ids' attrs="{'readonly':[('department_id','=',False)]}"></field>
+                                <field name='capacity'></field>
+                            </group>
+                            </page>
+                            <page string="Log Information">
+                            <group string="Data">
+                                <field name='logs'>
+                                    <tree>
+                                        <field name="create_uid"/>
+                                        <field name="description"/>
+                                        <field name="create_date"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="hms_root" name="HMS"/>
+        <menuitem id="hms_patient" name="Patient" parent="hms_root" action="hms_patient_view"/> 
+    </data>
+</odoo>

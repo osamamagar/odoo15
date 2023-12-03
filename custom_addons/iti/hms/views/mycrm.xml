@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mycrm">
+            <field name="name">myCRM</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="category_id" position="after"/>
+                            <field name="related_patient_id"/>
+                        </group>
+                    </sheet>
+<!--                    <field name="vat" position="attributes">-->
+<!--                            <attribute name="required">1</attribute>-->
+<!--                        </field>-->
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

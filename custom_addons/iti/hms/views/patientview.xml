@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+<record id="view_hms_patient_form" model="ir.ui.view">
+    <field name="name">hms.patient.form</field>
+    <field name="model">hms.patient</field>
+    <field name="arch" type="xml">
+       <form>
+            <header>
+                <button string='Undetermined' type="object" name="set_undetermined" />
+                <button string='Good' type="object" name="set_good" />
+                <button string='Fair' type="object" name="set_fair" />
+                <button string='Serious' type="object" name="set_serious" />
+                <field name="states" widget="statusbar" nolabel="1" options="{'clickable' : '1'}"/>
+            </header>
+            <sheet>
+                <group>
+            <field name="firstName" placeholder="Add first name here" widget="char"/>
+            <field name="lastName" placeholder="Add last name here"/>
+            <field name="birthDate"/>
+                </group>
+                <group>
+            <field name="history" placeholder="enter the history here"  attrs="{'invisible': [('age', '&lt;', 50)]}"/>
+            <field name="CR_Ratio" attrs="{'required': [('PCR', '=', True)]}"/>
+            <field name="bloodType"/>
+            <field name="PCR"/>
+                    <field name="email"/>
+                </group>
+                <group>
+            <field name="image"/>
+            <field name="address"  placeholder="enter your address here"/>
+            <field name="age"/>
+                </group>
+                <group>
+            <field name="department_id"/>
+            <field name="department_capacity"/>
+            <field name="doctors_id" attrs="{'readonly': [('department_id', '=', False)]}" />
+                </group>
+                <notebook>
+                <page string="Log Data">
+                    <group>
+                        <field name="patient_logs">
+                            <tree>
+                                <field name="create_uid"/>
+                                <field name="create_date"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+    <record model="ir.actions.act_window" id="patient_mod">
+      <field name="name">Patients</field>
+      <field name="res_model">hms.patient</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+  </data>
+</odoo>
